@@ -168,7 +168,7 @@ namespace MapStudio.UI
         /// </summary>
         public virtual void DrawHelpWindow()
         {
-            if (ImGuiNET.ImGui.CollapsingHeader("Camera", ImGuiNET.ImGuiTreeNodeFlags.DefaultOpen))
+            if (ImGuiSharp.ImGui.CollapsingHeader("Camera", ImGuiSharp.ImGuiTreeNodeFlags.DefaultOpen))
             {
                 ImGuiHelper.BoldTextLabel("WASD", "Move camera.");
                 ImGuiHelper.BoldTextLabel("Spacebar", "Move up.");

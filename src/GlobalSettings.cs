@@ -241,9 +241,9 @@ namespace MapStudio.UI
             public string ID;
             public string ParentWindow;
             public float SplitRatio;
-            public ImGuiNET.ImGuiDir DockDirection;
+            public ImGuiSharp.ImGuiDir DockDirection;
 
-            public DockSettings(string id, ImGuiNET.ImGuiDir dir, float ratio, string parentWindow = "")
+            public DockSettings(string id, ImGuiSharp.ImGuiDir dir, float ratio, string parentWindow = "")
             {
                 ID = id;
                 DockDirection = dir;
