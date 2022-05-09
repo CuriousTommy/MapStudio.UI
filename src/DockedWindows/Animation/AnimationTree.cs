@@ -5,7 +5,7 @@ using System.Numerics;
 using UIFramework;
 using Toolbox.Core.Animations;
 using CurveEditorLibrary;
-using ImGuiNET;
+using ImGuiSharp;
 using Toolbox.Core;
 
 namespace MapStudio.UI

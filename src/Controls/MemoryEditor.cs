@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using ImGuiNET;
+using ImGuiSharp;
 using System.Numerics;
 
 namespace MapStudio.UI

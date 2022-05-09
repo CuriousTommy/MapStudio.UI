@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using ImGuiNET;
+using ImGuiSharp;
 using MapStudio.UI;
 
 namespace UIFramework

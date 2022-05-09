@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using GLFrameworkEngine;
-using ImGuiNET;
+using ImGuiSharp;
 using OpenTK.Input;
 
 namespace MapStudio.UI

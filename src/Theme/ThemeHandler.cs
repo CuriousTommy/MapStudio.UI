@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
-using ImGuiNET;
+using ImGuiSharp;
 using Newtonsoft.Json;
 
 namespace MapStudio.UI

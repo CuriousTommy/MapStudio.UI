@@ -4,7 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using MapStudio.UI;
-using ImGuiNET;
+using ImGuiSharp;
 using GLFrameworkEngine;
 
 namespace MapStudio.UI

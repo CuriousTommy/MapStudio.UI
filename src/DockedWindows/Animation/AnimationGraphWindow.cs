@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
-using ImGuiNET;
+using ImGuiSharp;
 using CurveEditorLibrary;
 using Toolbox.Core.Animations;
 using UIFramework;

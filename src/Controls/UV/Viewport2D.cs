@@ -8,7 +8,7 @@ using OpenTK;
 using OpenTK.Input;
 using System.Drawing;
 using GLFrameworkEngine;
-using ImGuiNET;
+using ImGuiSharp;
 
 namespace MapStudio.UI
 {

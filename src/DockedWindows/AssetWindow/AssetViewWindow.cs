@@ -6,7 +6,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Numerics;
 using MapStudio.UI;
-using ImGuiNET;
+using ImGuiSharp;
 using GLFrameworkEngine;
 using OpenTK.Graphics;
 using UIFramework;
