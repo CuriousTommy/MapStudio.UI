@@ -305,7 +305,7 @@ namespace MapStudio.UI
                 ImGui.PopItemWidth();
 
                 //Insert key value with degrees back to radians
-                if (edited || (isActive && ImGui.IsKeyDown((int)ImGuiKey.Enter)))
+                if (edited || (isActive && ImGui.IsKeyDown(ImGuiKey.Enter)))
                     InsertOrUpdateKeyValue(value * Toolbox.Core.STMath.Deg2Rad);
 
                 ImGui.PopStyleColor();
@@ -421,7 +421,7 @@ namespace MapStudio.UI
                 ImGui.PopItemWidth();
 
                 //Insert key value from current frame
-                if (edited || (isActive && ImGui.IsKeyDown((int)ImGuiKey.Enter)))
+                if (edited || (isActive && ImGui.IsKeyDown(ImGuiKey.Enter)))
                     InsertOrUpdateKeyValue(value);
 
                 ImGui.PopStyleColor();

@@ -104,7 +104,7 @@ namespace MapStudio.UI
             if (ActiveTextureIndex == -1)
                 ReloadImageDisplay();
 
-            if (ImGui.IsKeyPressed((int)ImGuiKey.Enter))
+            if (ImGui.IsKeyPressed(ImGuiKey.Enter))
             {
                 //finish encoding all textures that haven't encoded yet
                 //Execute before draw for progress bar to update
