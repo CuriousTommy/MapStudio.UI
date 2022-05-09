@@ -191,7 +191,7 @@ namespace MapStudio.UI
                     center.X + MathF.Cos(a + time * 8) * radius,
                     center.Y + MathF.Sin(a + time * 8) * radius));
             }
-            window.DrawList.PathStroke(ImGui.ColorConvertFloat4ToU32(color), false, thickness);
+            window.DrawList.PathStroke(ImGui.ColorConvertFloat4ToU32(color), ImDrawFlags.Closed, thickness);
         }
 
         public static bool ObjectLinkSelector(string label, object obj, string propertyName, EventHandler onObjectLink = null)
