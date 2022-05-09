@@ -95,10 +95,10 @@ namespace MapStudio.UI
 
             if (DataEditingAddr != -1)
             {
-                if (ImGui.IsKeyPressed(ImGui.GetKeyIndex(ImGuiKey.UpArrow)) && DataEditingAddr >= Rows) { DataEditingAddr -= Rows; DataEditingTakeFocus = true; }
-                else if (ImGui.IsKeyPressed(ImGui.GetKeyIndex(ImGuiKey.DownArrow)) && DataEditingAddr < mem_size - Rows) { DataEditingAddr += Rows; DataEditingTakeFocus = true; }
-                else if (ImGui.IsKeyPressed(ImGui.GetKeyIndex(ImGuiKey.LeftArrow)) && DataEditingAddr > 0) { DataEditingAddr -= 1; DataEditingTakeFocus = true; }
-                else if (ImGui.IsKeyPressed(ImGui.GetKeyIndex(ImGuiKey.RightArrow)) && DataEditingAddr < mem_size - 1) { DataEditingAddr += 1; DataEditingTakeFocus = true; }
+                if (ImGui.IsKeyPressed(ImGuiKey.UpArrow) && DataEditingAddr >= Rows) { DataEditingAddr -= Rows; DataEditingTakeFocus = true; }
+                else if (ImGui.IsKeyPressed(ImGuiKey.DownArrow) && DataEditingAddr < mem_size - Rows) { DataEditingAddr += Rows; DataEditingTakeFocus = true; }
+                else if (ImGui.IsKeyPressed(ImGuiKey.LeftArrow) && DataEditingAddr > 0) { DataEditingAddr -= 1; DataEditingTakeFocus = true; }
+                else if (ImGui.IsKeyPressed(ImGuiKey.RightArrow) && DataEditingAddr < mem_size - 1) { DataEditingAddr += 1; DataEditingTakeFocus = true; }
             }
             if ((DataEditingAddr / Rows) != (data_editing_addr_backup / Rows))
             {
@@ -106,7 +106,7 @@ namespace MapStudio.UI
                 float scroll_offset = ((DataEditingAddr / Rows) - (data_editing_addr_backup / Rows)) * line_height;
                 bool scroll_desired = (scroll_offset < 0.0f && DataEditingAddr < visible_start_addr + Rows * 2) || (scroll_offset > 0.0f && DataEditingAddr > visible_end_addr - Rows * 2);
                 if (scroll_desired)
-                    ImGuiNative.igSetScrollYFloat(ImGuiNative.igGetScrollY() + scroll_offset);
+                    ImGuiNative.igSetScrollY_Float(ImGuiNative.igGetScrollY() + scroll_offset);
             }
 
             for (int line_i = clipper.DisplayStart; line_i < clipper.DisplayEnd; line_i++) // display only visible items
@@ -145,9 +145,9 @@ namespace MapStudio.UI
                         }
                         ImGui.PushItemWidth(ImGui.CalcTextSize("FF").X);
 
-                        var flags = ImGuiInputTextFlags.CharsHexadecimal | ImGuiInputTextFlags.EnterReturnsTrue | ImGuiInputTextFlags.AutoSelectAll | ImGuiInputTextFlags.NoHorizontalScroll | ImGuiInputTextFlags.AlwaysInsertMode | ImGuiInputTextFlags.CallbackAlways;
+                        var flags = ImGuiInputTextFlags.CharsHexadecimal | ImGuiInputTextFlags.EnterReturnsTrue | ImGuiInputTextFlags.AutoSelectAll | ImGuiInputTextFlags.NoHorizontalScroll | ImGuiInputTextFlags.CallbackAlways;
 
-                        if (ImGui.InputText("##data", DataInput, 32, flags, (IntPtr)(&cursor_pos)))
+                        if (ImGui.InputText("##data", DataInput, 32, flags, callback, (IntPtr)(&cursor_pos)))
                             data_write = data_next = true;
                         else if (!DataEditingTakeFocus && !ImGui.IsItemActive())
                             DataEditingAddr = -1;
@@ -220,7 +220,7 @@ namespace MapStudio.UI
                 FixedHex(base_display_addr + mem_size - 1, addr_digits_count)));
             ImGui.SameLine();
             ImGui.PushItemWidth(70);
-            if (ImGui.InputText("##addr", AddrInput, 32, ImGuiInputTextFlags.CharsHexadecimal | ImGuiInputTextFlags.EnterReturnsTrue))
+            if (ImGui.InputText("##addr", AddrInput, 32, ImGuiInputTextFlags.CharsHexadecimal | ImGuiInputTextFlags.EnterReturnsTrue, null))
             {
                 int goto_addr;
                 if (TryHexParse(AddrInput, out goto_addr))
@@ -237,13 +237,15 @@ namespace MapStudio.UI
                 }
             }
             ImGui.PopItemWidth();
+
+            ImGui.End();
         }
     }
 
     //Not a proper translation, because ImGuiListClipper uses imgui's internal api.
     //Thus SetCursorPosYAndSetupDummyPrevLine isn't reimplemented, but SetCursorPosY + SetNextWindowContentSize seems to be working well instead.
     //TODO expose clipper through newer cimgui version
-    public class ImGuiListClipper2
+    internal class ImGuiListClipper2
     {
         public float StartPosY;
         public float ItemsHeight;
@@ -263,11 +265,9 @@ namespace MapStudio.UI
             DisplayEnd = DisplayStart = -1;
             if (ItemsHeight > 0.0f)
             {
-                int dispStart, dispEnd;
-                ImGuiNative.igCalcListClipping(ItemsCount, ItemsHeight, &dispStart, &dispEnd);
-                DisplayStart = dispStart;
-                DisplayEnd = dispEnd;
-                if (DisplayStart > 0)
+                ImGuiListClipperPtr listClipperPtr;
+                listClipperPtr.Begin(ItemsCount,ItemsHeight);
+                if (listClipperPtr.DisplayStart > 0)
                     //SetCursorPosYAndSetupDummyPrevLine(StartPosY + DisplayStart * ItemsHeight, ItemsHeight); // advance cursor
                     ImGuiNative.igSetCursorPosY(StartPosY + DisplayStart * ItemsHeight);
                 StepNo = 2;
