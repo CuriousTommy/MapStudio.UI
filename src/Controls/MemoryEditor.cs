@@ -265,12 +265,15 @@ namespace MapStudio.UI
             DisplayEnd = DisplayStart = -1;
             if (ItemsHeight > 0.0f)
             {
-                ImGuiListClipperPtr listClipperPtr;
-                listClipperPtr.Begin(ItemsCount,ItemsHeight);
-                if (listClipperPtr.DisplayStart > 0)
-                    //SetCursorPosYAndSetupDummyPrevLine(StartPosY + DisplayStart * ItemsHeight, ItemsHeight); // advance cursor
-                    ImGuiNative.igSetCursorPosY(StartPosY + DisplayStart * ItemsHeight);
-                StepNo = 2;
+                unsafe {
+                    ImGuiListClipper listClipper = new ImGuiListClipper();
+                    ImGuiListClipperPtr listClipperPtr = &listClipper;
+                    listClipperPtr.Begin(ItemsCount,ItemsHeight);
+                    if (listClipperPtr.DisplayStart > 0)
+                        //SetCursorPosYAndSetupDummyPrevLine(StartPosY + DisplayStart * ItemsHeight, ItemsHeight); // advance cursor
+                        ImGuiNative.igSetCursorPosY(StartPosY + DisplayStart * ItemsHeight);
+                    StepNo = 2;
+                }
             }
         }
     }
