@@ -258,18 +258,19 @@ namespace MapStudio.UI
 
         public unsafe void Begin(int count, float items_height = -1.0f)
         {
-            StartPosY = ImGuiNative.igGetCursorPosY();
-            ItemsHeight = items_height;
-            ItemsCount = count;
             StepNo = 0;
-            DisplayEnd = DisplayStart = -1;
-            if (ItemsHeight > 0.0f)
+            if (items_height > 0.0f)
             {
                 unsafe {
                     ImGuiListClipper listClipper = new ImGuiListClipper();
                     ImGuiListClipperPtr listClipperPtr = &listClipper;
-                    listClipperPtr.Begin(ItemsCount,ItemsHeight);
-                    if (listClipperPtr.DisplayStart > 0)
+                    listClipperPtr.Begin(count,items_height);
+                    if (listClipperPtr.Step())
+                        DisplayStart = listClipperPtr.DisplayStart;
+                        DisplayEnd = listClipperPtr.DisplayEnd;
+                        ItemsCount = listClipperPtr.ItemsCount;
+                        ItemsHeight = listClipperPtr.ItemsHeight;
+                        StartPosY = listClipperPtr.StartPosY;
                         //SetCursorPosYAndSetupDummyPrevLine(StartPosY + DisplayStart * ItemsHeight, ItemsHeight); // advance cursor
                         ImGuiNative.igSetCursorPosY(StartPosY + DisplayStart * ItemsHeight);
                     StepNo = 2;
